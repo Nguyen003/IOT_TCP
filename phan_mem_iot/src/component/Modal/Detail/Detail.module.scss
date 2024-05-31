@@ -1,0 +1,145 @@
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.active {
+    border: 2px solid #CF3440 !important;
+    box-shadow: #CF3440 0px 3px 8px;
+}
+
+.btn-on {
+    background: #01FF00;
+}
+
+.btn-off {
+    background: #FA0300;
+}
+
+.modal {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 250px;
+    background-color: #EBEBEB;
+    border: 2px solid #32BEDB;
+    border-radius: 14px 14px 0 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 10;
+    pointer-events: auto;
+    animation: slideUp 0.5s ease;
+}
+
+.modal-close {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    width: 25px;
+    height: 25px;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 11;
+}
+
+.modal-body {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    .body-infor {
+        display: flex;
+        flex: 70%;
+    }
+
+    .body-chart {
+        flex: 30%;
+        padding: 4px;
+    }
+}
+
+.body-infor_left {
+    flex: 30%;
+    width: 100%;
+    margin: 0 auto;
+
+    .infor-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #4044AE;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+
+    .btn_item {
+        width: 90%;
+        min-height: 40px;
+        height: auto;
+        border: 2px solid #646461;
+        border-radius: 10px;
+        text-align: center;
+        background-color: white;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        padding: 2px 10px;
+        font-weight: 600;
+    }
+
+    .btn_item:focus {
+        background-color: #04FDFA;
+        border: 2px solid #10E73D;
+    }
+}
+
+.body-infor_content {
+    flex: 40%;
+    margin: auto;
+    padding: 0 10px;
+
+    p {
+        display: flex;
+        font-size: 1rem;
+        font-weight: 600;
+        color: black;
+        margin-bottom: 0;
+        margin-left: 8px;
+        text-align: justify;
+    }
+}
+
+.body-infor_right {
+    flex: 30%;
+}
+
+.box-container_content {
+    height: 230px;
+    // max-height: calc(500px - 140px);
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.list-container {
+    margin: 0;
+    padding: 0;
+
+    .list-item_btn {
+        color: black;
+        font-size: 1rem;
+        font-weight: 600;
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 5px 20px;
+        border: 2px solid #3A763F;
+        border-radius: 10px;
+        text-transform: uppercase;
+    }
+}

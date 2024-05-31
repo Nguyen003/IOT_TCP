@@ -1,0 +1,96 @@
+@keyframes slideLeft {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideRight {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    width: 25px;
+    height: 25px;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 11;
+}
+
+.list-btn_1 {
+    z-index: 20;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: white;
+    width: 50%;
+    height: 350px;
+    border: 2px solid #32BEDB;
+    animation: slideLeft 0.5s ease;
+}
+
+.list-btn_2 {
+    z-index: 20;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: white;
+    width: 50%;
+    height: 350px;
+    border: 2px solid #32BEDB;
+    animation: slideRight 0.5s ease;
+}
+
+.list-btn_1,
+.list-btn_2 {
+    h4 {
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 1.2rem;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+        margin: 0;
+    }
+}
+
+
+.box {
+    border: 2px solid #124111;
+    padding: 6px 12px;
+    background-color: #A2EDF3;
+
+    p {
+        font-weight: 600;
+        margin-bottom: 2px;
+        font-size: 1rem;
+        text-transform: uppercase;
+        color: #2C4FCB;
+    }
+}
+
+.box-list-btn button {
+    width: 100px;
+    border: 2px solid #124111;
+    background-color: #F49AA0;
+    color: #5832C8;
+    text-transform: uppercase;
+    font-weight: 600;
+}
