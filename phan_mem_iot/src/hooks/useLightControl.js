@@ -16,12 +16,16 @@ const EVENTS_OF_EACH_LIGHT = {
 
 const VALUES_OF_EACH_LIGHT = {
     LIGHT_1: {
-        ON: '$EMS,1351219863,GET,1000#',
-        OFF: '$EMS,1351219863,GET,0000#',
+        // ON: '$EMS,1351219863,GET,1000#',
+        // OFF: '$EMS,1351219863,GET,0000#',
+        ON: '#000010',
+        OFF: '#000000',
     },
     LIGHT_2: {
-        ON: '$EMS,1351219863,GET,2000#',
-        OFF: '$EMS,1351219863,GET,2002#',
+        // ON: '$EMS,1351219863,GET,2000#',
+        // OFF: '$EMS,1351219863,GET,2002#',
+        ON: '#000001',
+        OFF: '#000000',
     },
 };
 
@@ -40,12 +44,9 @@ export const useLightControl = () => {
         socket.on('GET_INIT_VALUE_FROM_LIGHT', (value) => {
             const statusOfLight1 = getCurrentStatusFromLight('LIGHT_1', value.LIGHT_1);
             setLight1Status(statusOfLight1 === 'ON' ? 'Bật' : 'Tắt');
-            console.log('Light1: ' + statusOfLight1);
             //
             const statusOfLight2 = getCurrentStatusFromLight('LIGHT_2', value.LIGHT_2);
             setLight2Status(statusOfLight2 === 'ON' ? 'Bật' : 'Tắt');
-            console.log('Light1: ' + statusOfLight1);
-
         });
 
         socket.on('ON_OFF_LIGHT', (value) => {
@@ -79,13 +80,14 @@ export const useLightControl = () => {
     };
 
     const handleOnOffLight = (light) => {
-        if(light === 'LIGHT_1'){
+        console.log(light);
+        if (light === 'LIGHT_1') {
             if (light1Status === STATUS_WHEN_COMPARE_WITH_INNER_HTML.ON) {
                 socket.emit('ON_OFF_LIGHT', EVENTS_OF_EACH_LIGHT.LIGHT_1.TURN_OFF);
             } else if (light1Status === STATUS_WHEN_COMPARE_WITH_INNER_HTML.OFF) {
                 socket.emit('ON_OFF_LIGHT', EVENTS_OF_EACH_LIGHT.LIGHT_1.TURN_ON);
             }
-        } else if (light === 'LIGHT_2'){
+        } else if (light === 'LIGHT_2') {
             if (light2Status === STATUS_WHEN_COMPARE_WITH_INNER_HTML.ON) {
                 socket.emit('ON_OFF_LIGHT', EVENTS_OF_EACH_LIGHT.LIGHT_2.TURN_OFF);
             } else if (light2Status === STATUS_WHEN_COMPARE_WITH_INNER_HTML.OFF) {

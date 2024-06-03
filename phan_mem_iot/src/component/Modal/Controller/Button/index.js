@@ -4,7 +4,7 @@ import styles from './Button.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Button1({ onCloseModalBtn, onToggleLight, content }) {
+function Button1({ onCloseModalBtn, onToggleLight, lightStatus }) {
     return (
         <div className={cx('list-btn_1')}>
             {/* <button id="on-off-1" style={{ marginTop: '10px' }} onClick={onToggleLight}>{content === 'Tắt' ? 'Bật đèn 1' : 'Tắt đèn 1'}</button> */}
@@ -23,7 +23,7 @@ function Button1({ onCloseModalBtn, onToggleLight, content }) {
                                     <button type="button" className="list-btn_item">Man</button>
                                 </div>
                                 <div className="d-flex w-100 justify-content-evenly">
-                                    <button type="button" className="list-btn_item" onClick={() => onToggleLight('LIGHT_1')}>{content[0] === 'Tắt' ? 'Bật' : 'Tắt'}</button>
+                                    <button type="button" className="list-btn_item" onClick={() => onToggleLight('LIGHT_1')}>{lightStatus[0] === 'Tắt' ? 'Bật' : 'Tắt'}</button>
                                     <button type="button" className="list-btn_item">Lỗi</button>
                                 </div>
                             </div>
@@ -38,7 +38,7 @@ function Button1({ onCloseModalBtn, onToggleLight, content }) {
                                     <button type="button" className="list-btn_item">Man</button>
                                 </div>
                                 <div className="d-flex w-100 justify-content-evenly">
-                                    <button type="button" className="list-btn_item" onClick={() => onToggleLight('LIGHT_2')}>{content[1] === 'Tắt' ? 'Bật' : 'Tắt'}</button>
+                                    <button type="button" className="list-btn_item" onClick={() => onToggleLight('LIGHT_2')}>{lightStatus[1] === 'Tắt' ? 'Bật' : 'Tắt'}</button>
                                     <button type="button" className="list-btn_item">Lỗi</button>
                                 </div>
                             </div>

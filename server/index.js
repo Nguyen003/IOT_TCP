@@ -7,7 +7,7 @@ const { handleWhenDeviceOutConnection, sendDataToAllClients } = require('./tcp-v
 const net = require('net');
 const { EVENTS_FROM_WEB } = require('./events');
 
-const PORT_TCP = process.env.PORT_TCP || 11000;
+const PORT_TCP = process.env.PORT_TCP || 100;
 const PORT = process.env.PORT_APP || 3000;
 
 app.use(express.json());
@@ -33,13 +33,17 @@ const server = createServer(app);
 server.listen(PORT, () => console.log(`Lisening Server on port `, PORT));
 
 const VALUE_OF_LIGHT_1 = {
-  ON: '$EMS,1351219863,GET,1000#',
-  OFF: '$EMS,1351219863,GET,0000#',
+  // ON: '$EMS,1351219863,GET,1000#',
+  // OFF: '$EMS,1351219863,GET,0000#',
+  ON: '#000010',
+  OFF: '#000000',
 };
 
 const VALUE_OF_LIGHT_2 = {
-  ON: '$EMS,1351219863,GET,2000#',
-  OFF: '$EMS,1351219863,GET,2002#',
+  // ON: '$EMS,1351219863,GET,2000#',
+  // OFF: '$EMS,1351219863,GET,2002#',
+  ON: '#000001',
+  OFF: '#000000',
 };
 
 const ValueOfAllLights = {
@@ -116,6 +120,6 @@ serverTCP.on('connection', function () {
   console.log('A device connected to server...');
 });
 
-serverTCP.listen(PORT_TCP, '127.0.0.1', () => {
+serverTCP.listen(PORT_TCP, () => {
   console.log('listening TCP on port', PORT);
 });

@@ -6,14 +6,16 @@ const EVENT = {
 };
 
 const RESPONSE = {
-  ON: '$EMS,1351219863,GET,1000#',
-  OFF: '$EMS,1351219863,GET,0000#',
+  // ON: '$EMS,1351219863,GET,1000#',
+  // OFF: '$EMS,1351219863,GET,0000#',
+  ON: '#000010',
+  OFF: '#000000',
 };
 
 let valueOfLight = RESPONSE.ON;
 
 const client = new net.Socket();
-client.connect(11000, '127.0.0.1', function () {
+client.connect(100, function () {
   client.write(valueOfLight);
   console.log('Connected');
 });
