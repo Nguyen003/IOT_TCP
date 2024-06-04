@@ -1,15 +1,15 @@
 const net = require('net');
 
 const EVENT = {
-  TURN_ON: '000000000000000000001',
-  TURN_OFF: '000000000000000000011',
+  TURN_ON: '#00000010',
+  TURN_OFF: '#00000000',
 };
 
 const RESPONSE = {
   // ON: '$EMS,1351219863,GET,1000#',
   // OFF: '$EMS,1351219863,GET,0000#',
-  ON: '#000010',
-  OFF: '#000000',
+  ON: '#00000010',
+  OFF: '#00000000',
 };
 
 let valueOfLight = RESPONSE.ON;

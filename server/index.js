@@ -33,17 +33,13 @@ const server = createServer(app);
 server.listen(PORT, () => console.log(`Lisening Server on port `, PORT));
 
 const VALUE_OF_LIGHT_1 = {
-  // ON: '$EMS,1351219863,GET,1000#',
-  // OFF: '$EMS,1351219863,GET,0000#',
-  ON: '#000010',
-  OFF: '#000000',
+  ON: '#00000010', // trung nhau
+  OFF: '#00000001',
 };
 
 const VALUE_OF_LIGHT_2 = {
-  // ON: '$EMS,1351219863,GET,2000#',
-  // OFF: '$EMS,1351219863,GET,2002#',
-  ON: '#000001',
-  OFF: '#000000',
+  ON: '#00000001',
+  OFF: '#00000011',
 };
 
 const ValueOfAllLights = {
@@ -77,6 +73,7 @@ io.on('connection', (socket) => {
       LIGHT_1: ValueOfAllLights.LIGHT_1.currentValue,
       LIGHT_2: ValueOfAllLights.LIGHT_2.currentValue,
     };
+    console.log('gia tri tu web',valueToEmit);
     io.emit(EVENTS_FROM_WEB.GET_INIT_VALUE_FROM_LIGHT, valueToEmit);
   });
 });
@@ -86,9 +83,15 @@ const serverTCP = net.createServer((socket) => {
   TcpConnections.push(socket);
 
   socket.on('data', (data) => {
-    const parseData = data.toString();
-
+    // console.log(data.toString('hex').trim(), 'a')// '#00000010  a'
+    const parseData = data.toString().substr(0, 9);
+    // console.log('abc' + parseData + 'abc');
+    
+    // var fb1 = new Buffer(parseData);
+    // var fb2 = new Buffer(VALUE_OF_LIGHT_1.ON);
+   
     if (ValueOfAllLights.LIGHT_1.allValues.includes(parseData)) {
+      console.log('den 1')
       ValueOfAllLights.LIGHT_1.currentValue = parseData;
       const valueToEmit = {
         type: 'LIGHT_1',
@@ -98,6 +101,8 @@ const serverTCP = net.createServer((socket) => {
     }
 
     if (ValueOfAllLights.LIGHT_2.allValues.includes(parseData)) {
+      console.log('den 2')
+
       ValueOfAllLights.LIGHT_2.currentValue = parseData;
       const valueToEmit = {
         type: 'LIGHT_2',
