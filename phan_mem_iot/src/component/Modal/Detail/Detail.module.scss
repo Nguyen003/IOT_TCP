@@ -16,11 +16,15 @@
 }
 
 .btn-on {
-    background: #01FF00;
+    background: #01FF00 !important;
 }
 
 .btn-off {
-    background: #FA0300;
+    background: #ff7f00 !important;
+}
+
+.btn-error {
+    background: #ffe700 !important;
 }
 
 .modal {
@@ -133,6 +137,7 @@
 
     .list-item_btn {
         color: black;
+        background: #ccc;
         font-size: 1rem;
         font-weight: 600;
         width: 100%;

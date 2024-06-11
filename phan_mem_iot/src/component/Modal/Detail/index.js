@@ -5,6 +5,7 @@ import classNames from "classnames/bind";
 
 import styles from "./Detail.module.scss";
 import { ChartBarDetail as Bardetail } from "~/component/Chart/Bar";
+import useTimeTracker from '~/hooks/useTimeTracker';
 
 const cx = classNames.bind(styles);
 
@@ -21,6 +22,8 @@ const buttonTitles = [
 ];
 
 function Modal({ onClose, title, onShowModal, lightStatus }) {
+    const isRunning = lightStatus[0] === 'Bật';
+    const { timer, formatTime } = useTimeTracker(isRunning);
 
     return (
         <div className={cx('modal')}>
@@ -45,12 +48,16 @@ function Modal({ onClose, title, onShowModal, lightStatus }) {
                         <div className={cx("box-container_content")}>
                             <ul className={cx('list-container')}>
                                 <li className={cx('list-item')}>
-                                    <button type="button" disabled className={cx('list-item_btn', { 'btn-on': lightStatus[0] === 'Bật', 'btn-off': lightStatus[0] === 'Tắt' })}>
-                                        Bơm lọc áp lực 01
+                                    <button type="button" disabled
+                                        className={cx('list-item_btn', { 'btn-on': lightStatus[0] === 'Bật', 'btn-off': lightStatus[0] === 'Tắt' })}
+                                    >
+                                        Bơm lọc áp lực 01 {isRunning && ` - ${formatTime(timer)}`}
                                     </button>
                                 </li>
                                 <li className={cx('list-item')}>
-                                    <button type="button" disabled className={cx('list-item_btn', { 'btn-on': lightStatus[1] === 'Bật', 'btn-off': lightStatus[1] === 'Tắt' })}>
+                                    <button type="button" disabled
+                                        className={cx('list-item_btn', { 'btn-on': lightStatus[1] === 'Bật', 'btn-off': lightStatus[1] === 'Tắt' })}
+                                    >
                                         Bơm lọc áp lực 02
                                     </button>
                                 </li>

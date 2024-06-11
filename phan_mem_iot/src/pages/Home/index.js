@@ -56,7 +56,7 @@ function Home() {
                         <Modaldetail
                             onClose={handleCloseModal}
                             onShowModal={handleShowModal}
-                            title={activeIndex.name} 
+                            title={activeIndex.name}
                             lightStatus={[light1Status, light2Status]} // Truyền trạng thái đèn
                         />
                     </div>
@@ -67,11 +67,23 @@ function Home() {
                     <BlockDiagram
                         onClose={handleCloseModalDiagram}
                         content={modalContent}
-                        onShowModalBtn={handleShowButton}/>
+                        onShowModalBtn={handleShowButton} />
                 )}
 
-                {modal1Visible && <Button1 onCloseModalBtn={closeModal1} onToggleLight={handleOnOffLight} lightStatus={[light1Status, light2Status]} />}
-                {modal2Visible && <Button2 onCloseModalBtn={closeModal2} onToggleLight={handleOnOffLight} content={light1Status} />}
+                {modal1Visible &&
+                    <Button1
+                        onCloseModalBtn={closeModal1}
+                        onToggleLight={handleOnOffLight}
+                        lightStatus={[light1Status, light2Status]}
+                    />
+                }
+                {modal2Visible &&
+                    <Button2
+                        onCloseModalBtn={closeModal2}
+                        onToggleLight={handleOnOffLight}
+                        content={light1Status}
+                    />
+                }
             </div>
         </div>
     )

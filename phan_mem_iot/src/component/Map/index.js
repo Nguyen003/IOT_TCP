@@ -1,6 +1,6 @@
 import 'leaflet/dist/leaflet.css';
 import classNames from "classnames/bind";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents, Tooltip } from 'react-leaflet';
 import L from 'leaflet';
 
@@ -52,9 +52,22 @@ const Map = ({ onClickBtn, activeIndex }) => {
         setVisibleMachines(visible);
     };
 
+    // di chuyển đến vị trí khi click vào listBtn
+    const [map, setMap] = useState(null);
+    const handleButtonClick = useCallback((machine) => {
+        const { latitude, longitude } = machine;
+        map.setView([latitude, longitude], 8);
+        onClickBtn(machine);
+    }, [map, onClickBtn])
+
     return (
-        <div className={cx("map-container")} >
-            <MapContainer center={[16.047079, 108.206230]} zoom={6} className={cx('map')}>
+        <div id="map" className={cx("map-container")} >
+            <MapContainer
+                center={[16.047079, 108.206230]}
+                zoom={6}
+                className={cx('map')}
+                ref={setMap}
+            >
                 <TileLayer
                     url={`https://api.maptiler.com/maps/outdoor-v2/256/{z}/{x}/{y}@2x.png?key=VkLDjfAmKsJZt6TIJ6DG`}
                 />
@@ -94,7 +107,7 @@ const Map = ({ onClickBtn, activeIndex }) => {
                                 <button
                                     type="button"
                                     className={`${cx('list-item_btn')} ${activeIndex?.id === machine.id ? cx('active') : ''}`}
-                                    onClick={() => onClickBtn(machine)}
+                                    onClick={() => handleButtonClick(machine)}
                                 >
                                     {machine.name}
                                 </button>

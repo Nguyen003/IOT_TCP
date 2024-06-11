@@ -1,101 +1,110 @@
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import classNames from 'classnames/bind';
 
 import styles from './Button.module.scss';
+import PopupAuthentication from '../../Popup';
 
 const cx = classNames.bind(styles);
 
-function Button1({ onCloseModalBtn, onToggleLight, lightStatus }) {
+function Button1({ ...props }) {
     return (
-        <div className={cx('list-btn_1')}>
-            {/* <button id="on-off-1" style={{ marginTop: '10px' }} onClick={onToggleLight}>{content === 'Tắt' ? 'Bật đèn 1' : 'Tắt đèn 1'}</button> */}
-            <button type="button" className={cx('modal-close')} onClick={onCloseModalBtn}><i className="fa fa-times" aria-hidden="true"></i></button>
-            <h4>ĐIều khiển hệ thống lọc áp lực</h4>
-            <div className="container">
-                <div className="row">
-                    <div className="col m-auto">
-                        <div className={cx(`mt-1 ${cx('box')}`)}>
-                            <div className="box-header">
-                                <p>Bơm lọc 01</p>
-                            </div>
-                            <div className={cx('box-list-btn')}>
-                                <div className="d-flex w-100 justify-content-evenly mb-2">
-                                    <button type="button" className="list-btn_item">Auto</button>
-                                    <button type="button" className="list-btn_item">Man</button>
+        <>
+            <div className={cx('list-btn_1')}>
+                <button type="button" className={cx('modal-close')} onClick={props.onCloseModalBtn}><i className="fa fa-times" aria-hidden="true"></i></button>
+                <h4>ĐIều khiển hệ thống lọc áp lực</h4>
+                <div className="container">
+                    <div className="row">
+                        <div className="col m-auto">
+                            <div className={cx(`mt-1 ${cx('box')}`)}>
+                                <div className="box-header">
+                                    <p>Bơm lọc 01</p>
                                 </div>
-                                <div className="d-flex w-100 justify-content-evenly">
-                                    <button type="button" className="list-btn_item" onClick={() => onToggleLight('LIGHT_1')}>{lightStatus[0] === 'Tắt' ? 'Bật' : 'Tắt'}</button>
-                                    <button type="button" className="list-btn_item">Lỗi</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={`mt-1 ${cx(`mt-1 ${cx('box')}`)}`}>
-                            <div className="box-header">
-                                <p>Bơm lọc 02</p>
-                            </div>
-                            <div className={cx('box-list-btn')}>
-                                <div className="d-flex w-100 justify-content-evenly mb-2">
-                                    <button type="button" className="list-btn_item">Auto</button>
-                                    <button type="button" className="list-btn_item">Man</button>
-                                </div>
-                                <div className="d-flex w-100 justify-content-evenly">
-                                    <button type="button" className="list-btn_item" onClick={() => onToggleLight('LIGHT_2')}>{lightStatus[1] === 'Tắt' ? 'Bật' : 'Tắt'}</button>
-                                    <button type="button" className="list-btn_item">Lỗi</button>
+                                <div className={cx('box-list-btn')}>
+                                    <div className="d-flex w-100 justify-content-evenly mb-2">
+                                        <button type="button" className="list-btn_item">Auto</button>
+                                        <button type="button" className="list-btn_item">Man</button>
+                                    </div>
+                                    <div className="d-flex w-100 justify-content-evenly">
+                                        <button type="button" className="list-btn_item"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                        >
+                                            {props.lightStatus[0] === 'Tắt' ? 'Bật' : 'Tắt'}
+                                        </button>
+                                        <button type="button" className="list-btn_item">Lỗi</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div className="col">
-                        <div className={cx(`mt-1 ${cx('box')}`)}>
-                            <div className="box-header">
-                                <p>Bộ lọc đĩa</p>
-                            </div>
-                            <div className={cx('box-list-btn')}>
-                                <div className="d-flex w-100 justify-content-evenly">
-                                    <button type="button" className="list-btn_item">Lọc</button>
-                                    <button type="button" className="list-btn_item">Rửa ngược</button>
+                            <div className={`mt-1 ${cx(`mt-1 ${cx('box')}`)}`}>
+                                <div className="box-header">
+                                    <p>Bơm lọc 02</p>
+                                </div>
+                                <div className={cx('box-list-btn')}>
+                                    <div className="d-flex w-100 justify-content-evenly mb-2">
+                                        <button type="button" className="list-btn_item">Auto</button>
+                                        <button type="button" className="list-btn_item">Man</button>
+                                    </div>
+                                    <div className="d-flex w-100 justify-content-evenly">
+                                        <button type="button" className="list-btn_item" onClick={() => props.onToggleLight('LIGHT_2')}>{props.lightStatus[1] === 'Tắt' ? 'Bật' : 'Tắt'}</button>
+                                        <button type="button" className="list-btn_item">Lỗi</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className={cx(`mt-1 ${cx('box')}`)}>
-                            <div className="box-header">
-                                <p>Auto van 01</p>
-                            </div>
-                            <div className={cx('box-list-btn')}>
-                                <div className="d-flex w-100 justify-content-evenly">
-                                    <button type="button" className="list-btn_item">Lọc</button>
-                                    <button type="button" className="list-btn_item">Rửa xuôi</button>
-                                    <button type="button" className="list-btn_item">Rửa ngược</button>
+                        <div className="col">
+                            <div className={cx(`mt-1 ${cx('box')}`)}>
+                                <div className="box-header">
+                                    <p>Bộ lọc đĩa</p>
+                                </div>
+                                <div className={cx('box-list-btn')}>
+                                    <div className="d-flex w-100 justify-content-evenly">
+                                        <button type="button" className="list-btn_item">Lọc</button>
+                                        <button type="button" className="list-btn_item">Rửa ngược</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className={cx(`mt-1 ${cx('box')}`)}>
-                            <div className="box-header">
-                                <p>Auto van 02</p>
-                            </div>
-                            <div className={cx('box-list-btn')}>
-                                <div className="d-flex w-100 justify-content-evenly">
-                                    <button type="button" className="list-btn_item">Lọc</button>
-                                    <button type="button" className="list-btn_item">Rửa xuôi</button>
-                                    <button type="button" className="list-btn_item">Rửa ngược</button>
+                            <div className={cx(`mt-1 ${cx('box')}`)}>
+                                <div className="box-header">
+                                    <p>Auto van 01</p>
+                                </div>
+                                <div className={cx('box-list-btn')}>
+                                    <div className="d-flex w-100 justify-content-evenly">
+                                        <button type="button" className="list-btn_item">Lọc</button>
+                                        <button type="button" className="list-btn_item">Rửa xuôi</button>
+                                        <button type="button" className="list-btn_item">Rửa ngược</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className={cx(`mt-1 ${cx('box')}`)}>
-                            <div className="box-header">
-                                <p>Auto van 03</p>
+                            <div className={cx(`mt-1 ${cx('box')}`)}>
+                                <div className="box-header">
+                                    <p>Auto van 02</p>
+                                </div>
+                                <div className={cx('box-list-btn')}>
+                                    <div className="d-flex w-100 justify-content-evenly">
+                                        <button type="button" className="list-btn_item">Lọc</button>
+                                        <button type="button" className="list-btn_item">Rửa xuôi</button>
+                                        <button type="button" className="list-btn_item">Rửa ngược</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div className={cx('box-list-btn')}>
-                                <div className="d-flex w-100 justify-content-evenly">
-                                    <button type="button" className="list-btn_item">Lọc</button>
-                                    <button type="button" className="list-btn_item">Rửa xuôi</button>
-                                    <button type="button" className="list-btn_item">Rửa ngược</button>
+                            <div className={cx(`mt-1 ${cx('box')}`)}>
+                                <div className="box-header">
+                                    <p>Auto van 03</p>
+                                </div>
+                                <div className={cx('box-list-btn')}>
+                                    <div className="d-flex w-100 justify-content-evenly">
+                                        <button type="button" className="list-btn_item">Lọc</button>
+                                        <button type="button" className="list-btn_item">Rửa xuôi</button>
+                                        <button type="button" className="list-btn_item">Rửa ngược</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            <PopupAuthentication handleClick={props.onToggleLight} />
+        </>
     )
 }
 
