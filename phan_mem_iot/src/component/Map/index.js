@@ -1,7 +1,7 @@
 import 'leaflet/dist/leaflet.css';
 import classNames from "classnames/bind";
 import React, { useEffect, useState, useCallback } from 'react';
-import { MapContainer, TileLayer, Marker, useMapEvents, Tooltip } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, useMapEvents, Tooltip, Popup, Circle } from 'react-leaflet';
 import L from 'leaflet';
 
 import styles from "./Map.module.scss";
@@ -61,7 +61,7 @@ const Map = ({ onClickBtn, activeIndex }) => {
     }, [map, onClickBtn])
 
     return (
-        <div id="map" className={cx("map-container")} >
+        <div className={cx("map-container")} >
             <MapContainer
                 center={[16.047079, 108.206230]}
                 zoom={6}
@@ -72,15 +72,40 @@ const Map = ({ onClickBtn, activeIndex }) => {
                     url={`https://api.maptiler.com/maps/outdoor-v2/256/{z}/{x}/{y}@2x.png?key=VkLDjfAmKsJZt6TIJ6DG`}
                 />
                 {machines.map(machine => (
-                    <Marker
-                        key={machine.id}
-                        position={[machine.latitude, machine.longitude]}
-                        icon={L.icon({ iconUrl: locationIcon, iconSize: [41, 41], iconAnchor: [20.5, 40] })}
-                    >
-                        <Tooltip>
-                            {machine.name}
-                        </Tooltip>
-                    </Marker>
+                    <React.Fragment key={machine.id}>
+                        <Marker
+                            key={machine.id}
+                            position={[machine.latitude, machine.longitude]}
+                            icon={L.icon({ iconUrl: locationIcon, iconSize: [41, 41], iconAnchor: [20.5, 40] })}
+                        >
+                            <Tooltip>
+                                {machine.name}
+                            </Tooltip>
+                            <Popup className={cx('popup__margin')}>
+                                <div className={cx("popup-container")}>
+                                    <div className={cx("popup-content")}>
+                                        <div className={cx("popup-title")}>{machine.name}</div>
+                                        <div className={`d-flex ${cx("popup-content-item")}`}>
+                                            <div className={cx("popup-content-item-title")}>Tung độ: </div>
+                                            <div className={cx("popup-content-item-value")}>{machine.latitude}</div>
+                                        </div>
+                                        <div className={`d-flex ${cx("popup-content-item")}`}>
+                                            <div className={cx("popup-content-item-title")}>Hoành độ:</div>
+                                            <div className={cx("popup-content-item-value")}>{machine.longitude}</div>
+                                        </div>
+                                        <div className={cx("popup-content-item")}>
+                                            <div className={cx("popup-content-item-title")}>Humidity</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Popup>
+                        </Marker>
+                        <Circle
+                            center={[machine.latitude, machine.longitude]} // Tọa độ trung tâm của vòng tròn
+                            pathOptions={{ fillColor: 'blue', fillOpacity: 0.4 }} // Tuỳ chọn cho vòng tròn
+                            radius={200} // Bán kính của vòng tròn tính bằng mét
+                        />
+                    </React.Fragment>
                 ))}
                 <MapEvents onBoundsChange={updateVisibleMachines} />
             </MapContainer>

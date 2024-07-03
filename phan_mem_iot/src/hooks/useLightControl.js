@@ -5,10 +5,10 @@ const socket = io('http://localhost:3000', { transports: ['websocket'] });
 
 const EVENTS_OF_EACH_LIGHT = {
     LIGHT_1: {
-        // TURN_ON: '10',
-        // TURN_OFF: '01',
-        TURN_ON: '#00000010',
-        TURN_OFF: '#00000000',
+        TURN_ON: '10',
+        TURN_OFF: '01',
+        // TURN_ON: '#00000010',
+        // TURN_OFF: '#00000000',
     },
     LIGHT_2: {
         TURN_ON: '01',
@@ -18,13 +18,13 @@ const EVENTS_OF_EACH_LIGHT = {
 
 const VALUES_OF_EACH_LIGHT = {
     LIGHT_1: {
-        // ON: '#10010010',
-        // OFF: '01',
-        ON: '#00000010',
-        OFF: '#00000000',
+        ON: '#10010010',
+        OFF: '01',
+        // ON: '#00000010',
+        // OFF: '#00000000',
     },
     LIGHT_2: {
-        ON: '01',
+        ON: '#10010001',
         OFF: '10',
     },
 };
@@ -40,7 +40,6 @@ export const useLightControl = () => {
 
     useEffect(() => {
         socket.on('connect', getInitValueFromLight);
-        console.log('Connected to light');
 
         socket.on('GET_INIT_VALUE_FROM_LIGHT', (value) => {
             console.log('GET_INIT_VALUE_FROM_LIGHT received:', value);
@@ -54,14 +53,15 @@ export const useLightControl = () => {
 
         socket.on('ON_OFF_LIGHT', (value) => {
             console.log('ON_OFF_LIGHT received:' + value.currentValue + 'abc');
+            console.log('value:' + value.type);
 
-            if (value.type === 'LIGHT_1') {
+            // if (value.type === 'LIGHT_1') {
                 const statusOfLight1 = getCurrentStatusFromLight('LIGHT_1', value.currentValue);
                 setLight1Status(statusOfLight1 === 'ON' ? 'Bật' : 'Tắt');
-            } else if (value.type === 'LIGHT_2') {
+            // } else if (value.type === 'LIGHT_2') {
                 const statusOfLight2 = getCurrentStatusFromLight('LIGHT_2', value.currentValue);
                 setLight2Status(statusOfLight2 === 'ON' ? 'Bật' : 'Tắt');
-            }
+            // }
         });
 
         return () => {
@@ -86,6 +86,7 @@ export const useLightControl = () => {
 
     const handleOnOffLight = (light) => {
         console.log('light: ' + light);
+        console.log('light1Status: ' + light1Status);
 
         if (light === 'LIGHT_1') {
             if (light1Status === STATUS_WHEN_COMPARE_WITH_INNER_HTML.ON) {

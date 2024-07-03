@@ -22,8 +22,10 @@ const buttonTitles = [
 ];
 
 function Modal({ onClose, title, onShowModal, lightStatus }) {
-    const isRunning = lightStatus[0] === 'Bật';
-    const { timer, formatTime } = useTimeTracker(isRunning);
+    const isRunning1 = lightStatus[0] === 'Bật';
+    const isRunning2 = lightStatus[1] === 'Bật';
+    const { timer: timer1, formatTime: formatTime1 } = useTimeTracker(isRunning1);
+    const { timer: timer2, formatTime: formatTime2 } = useTimeTracker(isRunning2);
 
     return (
         <div className={cx('modal')}>
@@ -51,14 +53,14 @@ function Modal({ onClose, title, onShowModal, lightStatus }) {
                                     <button type="button" disabled
                                         className={cx('list-item_btn', { 'btn-on': lightStatus[0] === 'Bật', 'btn-off': lightStatus[0] === 'Tắt' })}
                                     >
-                                        Bơm lọc áp lực 01 {isRunning && ` - ${formatTime(timer)}`}
+                                        Bơm lọc áp lực 01 {isRunning1 && ` - ${formatTime1(timer1)}`}
                                     </button>
                                 </li>
                                 <li className={cx('list-item')}>
                                     <button type="button" disabled
                                         className={cx('list-item_btn', { 'btn-on': lightStatus[1] === 'Bật', 'btn-off': lightStatus[1] === 'Tắt' })}
                                     >
-                                        Bơm lọc áp lực 02
+                                        Bơm lọc áp lực 02 {isRunning2 && ` - ${formatTime2(timer2)}`}
                                     </button>
                                 </li>
                                 {/* {buttonTitles.map((title, index) => (

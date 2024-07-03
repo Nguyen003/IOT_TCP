@@ -1,92 +1,116 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'font-awesome/css/font-awesome.min.css';
-import React, { useState, memo } from 'react';
-import classNames from "classnames/bind";
+import classNames from 'classnames/bind';
 
-import Header from "~/layout/component/Header";
-import styles from "./Home.module.scss";
-import Modaldetail from '~/component/Modal/Detail';
-import BlockDiagram from '~/component/Modal/Controller/BlockDiagram';
-import { Button1, Button2 } from '~/component/Modal/Controller/Button';
-import Map from '~/component/Map';
-import { useLightControl } from '~/hooks/useLightControl';
+import config from '~/config';
+import styles from './Home.module.scss';
+import { NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import img from '~/assets/images/so_do.jpg'
 
 const cx = classNames.bind(styles);
 
 function Home() {
-    const [activeIndex, setActiveIndex] = useState(null);
-    const handleButtonClick = (machine) => setActiveIndex(machine)
-    const handleCloseModal = () => setActiveIndex(null);
+    const [hiddenStates, setHiddenStates] = useState({
+        section1: true,
+        section2: true,
+        section3: true,
+    });
+    useEffect(() => {
+        var userID = sessionStorage.getItem('user')
+    }, []);
 
-    //show điều khiển
-    const [showModal, setShowModal] = useState(null);
-    const [modalContent, setModalContent] = useState('');
-    const handleShowModal = (content) => {
-        setModalContent(content);
-        setShowModal(true);
+    const handleToggle = (section) => {
+        setHiddenStates(prevState => ({
+            ...prevState,
+            [section]: !prevState[section]
+        }));
     };
-    const handleCloseModalDiagram = () => setShowModal(null);
 
-    //show btn điều khiển
-    const [modal1Visible, setModal1Visible] = useState(false);
-    const [modal2Visible, setModal2Visible] = useState(false);
-
-    const handleShowButton = (modalId) => {
-        if (modalId === '1') {
-            setModal1Visible(true);
-        } else if (modalId === '2') {
-            setModal2Visible(true);
+    const sections = [
+        {
+            id: 'section1',
+            title: 'Nước sạch',
+            items: [
+                { route: config.routes.nuocSach, label: "Trạm xử lý nước sạch" },
+                // { route: null, label: "Trạm xử lý nước thải" },
+                // { route: null, label: "Trạm quản lý kho" },
+                // { route: null, label: "Trạm quản lý kho" },
+                // { route: null, label: "Trạm xử lý nước sạch" },
+                // { route: null, label: "Trạm xử lý nước thải" },
+                // { route: null, label: "Trạm quản lý kho" },
+                // { route: null, label: "Trạm quản lý kho" }
+            ]
+        },
+        {
+            id: 'section2',
+            title: 'Nước thải',
+            items: [
+                { route: null, label: "Trạm xử lý nước sạch" },
+                { route: null, label: "Trạm xử lý nước thải" },
+                { route: null, label: "Trạm quản lý kho" },
+                { route: null, label: "Trạm quản lý kho" },
+                { route: null, label: "Trạm xử lý nước sạch" },
+                { route: null, label: "Trạm xử lý nước thải" },
+                { route: null, label: "Trạm quản lý kho" },
+                { route: null, label: "Trạm quản lý kho" }
+            ]
+        },
+        {
+            id: 'section3',
+            title: 'Kho hàng',
+            items: [
+                { route: null, label: "Trạm xử lý nước sạch" },
+                { route: null, label: "Trạm xử lý nước thải" },
+                { route: null, label: "Trạm quản lý kho" },
+                { route: null, label: "Trạm quản lý kho" },
+                { route: null, label: "Trạm xử lý nước sạch" },
+                { route: null, label: "Trạm xử lý nước thải" },
+                { route: null, label: "Trạm quản lý kho" },
+                { route: null, label: "Trạm quản lý kho" }
+            ]
         }
-    };
-
-    const closeModal1 = () => setModal1Visible(false);
-    const closeModal2 = () => setModal2Visible(false);
-
-    //bật tắt đèn
-    const { light1Status, light2Status, handleOnOffLight } = useLightControl();
+    ];
 
     return (
-        <div className={cx('layout')}>
-            <Header />
-            <div className={cx("body")}>
-                <Map onClickBtn={handleButtonClick} activeIndex={activeIndex} />
-                {/* thông tin chi tiết */}
-                {activeIndex !== null && (
-                    <div className={cx("modal-container")}>
-                        <Modaldetail
-                            onClose={handleCloseModal}
-                            onShowModal={handleShowModal}
-                            title={activeIndex.name}
-                            lightStatus={[light1Status, light2Status]} // Truyền trạng thái đèn
-                        />
+        <div className={`d-flex ${cx("container")}`}>
+            <div className="m-auto w-75 pt-4 pb-4">
+                {sections.map((section, sectionIndex) => (
+                    <div key={sectionIndex} className="row">
+                        <div className="w-100 col-12 text-start p-0">
+                            <span className={`d-block position-relative fw-bold text-center text-uppercase p-1 ${cx("title")}`}>{section.title}</span>
+                        </div>
+                        <div className="col-12 position-relative p-0 mb-5">
+                            <div className={cx("content", { "hidden": hiddenStates[section.id] })}>
+                                <div className={`row col-12 m-0 pt-3 pb-3 ${cx("content__height")}`}>
+                                    {section.items.map((item, index) => (
+                                        <div key={index} className={`col-3`}>
+                                            <div className={`w-100 ${cx("box-item")}`}>
+                                                <div className={`w-100 overflow-hidden ${cx("box-img")}`}>
+                                                    <img alt='Ảnh' src={img} />
+                                                </div>
+                                                <div className="mt-2">
+                                                    <NavLink to={item.route} className="btn btn-primary">{item.label}</NavLink>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            {section.items.length > 4 && (
+                                <button
+                                    type="button"
+                                    className={`position-absolute ${cx("toggle-hidden", { "toggle-hidden__rotate": !hiddenStates[section.id] })}`}
+                                    onClick={() => handleToggle(section.id)}
+                                >
+                                    <i className="fa fa-chevron-down" aria-hidden="true"></i>
+                                </button>
+                            )}
+                        </div>
                     </div>
-                )}
-
-                {/* sơ đồ && biểu đồ thống kê */}
-                {showModal && (
-                    <BlockDiagram
-                        onClose={handleCloseModalDiagram}
-                        content={modalContent}
-                        onShowModalBtn={handleShowButton} />
-                )}
-
-                {modal1Visible &&
-                    <Button1
-                        onCloseModalBtn={closeModal1}
-                        onToggleLight={handleOnOffLight}
-                        lightStatus={[light1Status, light2Status]}
-                    />
-                }
-                {modal2Visible &&
-                    <Button2
-                        onCloseModalBtn={closeModal2}
-                        onToggleLight={handleOnOffLight}
-                        content={light1Status}
-                    />
-                }
+                ))}
             </div>
         </div>
     )
 }
 
-export default memo(Home);
+export default Home;

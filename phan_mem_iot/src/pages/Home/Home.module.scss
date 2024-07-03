@@ -1,15 +1,85 @@
+$height: 332px;
+;
 
-.layout {
-    max-width: 1500px;
-    width: 1500px;
-    height: auto;
-    margin: auto;
+.container {
+    display: flex;
+    height: 100%;
+    min-height: 100vh;
+    background: rgb(110, 226, 245);
+    background: linear-gradient(150deg, rgba(110, 226, 245, 1) 35%, rgba(100, 84, 240, 1) 100%);
+}
+
+.title {
+    width: 200px;
+    font-size: 16px;
+    background: #655af0;
+    color: #fff;
+    line-height: 32px;
+
+    &::after {
+        position: absolute;
+        content: '';
+        display: block;
+        width: 0;
+        height: 0;
+        top: 0;
+        right: -29.5px;
+        border-style: solid;
+        border-width: 40px 0 0 30px;
+        border-color: transparent transparent transparent #655af0;
+        z-index: 10;
+    }
+}
+
+.content.hidden {
+    height: $height;
     overflow: hidden;
 }
 
-.body {
-    width: auto;
-    height: auto;
-    position: relative;
+.content {
+    height: calc($height * 2);
+    overflow: hidden;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    background: linear-gradient(324deg, rgba(110, 226, 245, 1) 35%, rgba(100, 84, 240, 1) 100%);
+    transition: all 0.5s ease;
+
+    .content__height {
+        height: calc($height * 2);
+    }
 }
 
+.box-item {
+    height: 300px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+
+    .box-img {
+        height: 244px;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+button[type="button"].toggle-hidden {
+    bottom: -10px;
+    width: 32px;
+    height: 32px;
+    font-size: 22px;
+    line-height: 32px;
+    color: #fff;
+    background: #655ef0;
+    transform: translateX(-50%) rotate(0deg);
+    border-radius: 50%;
+    transition: all 0.5s ease;
+
+    &.toggle-hidden__rotate {
+        transform: translateX(-50%) rotate(180deg);
+    }
+}

@@ -6,7 +6,7 @@ import styles from "./PopupAuthentication.module.scss";
 
 const cx = classNames.bind(styles);
 
-function PopupAuthentication({ handleClick }) {
+function PopupAuthentication({ handleClick, light }) {
     const [password, setPassword] = useState('');
     const [numberPhone, setNumberPhone] = useState('');
     const [otp, setOtp] = useState('');
@@ -36,7 +36,7 @@ function PopupAuthentication({ handleClick }) {
         setErrors({});
 
         if (validateForm()) {
-            handleClick('LIGHT_1');
+            handleClick(light);
             const btnClose = document.getElementById('btnClose');
             btnClose.click();
             setPassword('');

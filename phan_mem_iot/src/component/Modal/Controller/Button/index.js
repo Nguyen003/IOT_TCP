@@ -1,4 +1,5 @@
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import React, { memo, useState } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from './Button.module.scss';
@@ -7,6 +8,8 @@ import PopupAuthentication from '../../Popup';
 const cx = classNames.bind(styles);
 
 function Button1({ ...props }) {
+    const [light, setLight] = useState('');
+
     return (
         <>
             <div className={cx('list-btn_1')}>
@@ -26,7 +29,7 @@ function Button1({ ...props }) {
                                     </div>
                                     <div className="d-flex w-100 justify-content-evenly">
                                         <button type="button" className="list-btn_item"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setLight('LIGHT_1')}
                                         >
                                             {props.lightStatus[0] === 'Tắt' ? 'Bật' : 'Tắt'}
                                         </button>
@@ -44,7 +47,11 @@ function Button1({ ...props }) {
                                         <button type="button" className="list-btn_item">Man</button>
                                     </div>
                                     <div className="d-flex w-100 justify-content-evenly">
-                                        <button type="button" className="list-btn_item" onClick={() => props.onToggleLight('LIGHT_2')}>{props.lightStatus[1] === 'Tắt' ? 'Bật' : 'Tắt'}</button>
+                                        <button type="button" className="list-btn_item"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setLight('LIGHT_2')}
+                                        >
+                                            {props.lightStatus[1] === 'Tắt' ? 'Bật' : 'Tắt'}
+                                        </button>
                                         <button type="button" className="list-btn_item">Lỗi</button>
                                     </div>
                                 </div>
@@ -103,7 +110,7 @@ function Button1({ ...props }) {
                 </div>
             </div>
 
-            <PopupAuthentication handleClick={props.onToggleLight} />
+            <PopupAuthentication handleClick={props.onToggleLight} light={light}/>
         </>
     )
 }

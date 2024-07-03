@@ -37,17 +37,17 @@ html {
 }
 
 /*---------------------------------------------*/
-a {
-    font-family: Poppins-Regular;
-    font-size: 14px;
-    line-height: 1.7;
-    color: #666666;
-    margin: 0px;
-    transition: all 0.4s;
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-}
+// a {
+//     font-family: Poppins-Regular;
+//     font-size: 14px;
+//     line-height: 1.7;
+//     color: #666666;
+//     margin: 0px;
+//     transition: all 0.4s;
+//     -webkit-transition: all 0.4s;
+//     -o-transition: all 0.4s;
+//     -moz-transition: all 0.4s;
+// }
 
 a:focus {
     outline: none !important;
@@ -55,7 +55,7 @@ a:focus {
 
 a:hover {
     text-decoration: none;
-    color: #57b846;
+    // color: #57b846;
 }
 
 /*---------------------------------------------*/
@@ -278,7 +278,7 @@ iframe {
 }
 
 .input100 {
-    font-family: Poppins-Medium;
+    // font-family: Poppins-Medium;
     font-size: 15px;
     line-height: 1.5;
     color: #666666;
@@ -291,6 +291,19 @@ iframe {
     padding: 0 30px 0 68px;
 }
 
+.group-input {
+    align-items: center;
+    flex-direction: row-reverse;
+    padding-left: 35px;
+    padding-right: 12px;
+}
+
+.form-select {
+    padding: 0;
+    outline: none;
+    border: none;
+    background: transparent;
+}
 
 /*------------------------------------------------------------------
   [ Focus ]*/
@@ -349,6 +362,13 @@ iframe {
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
     transition: all 0.4s;
+}
+
+.form-symbol {
+    padding-left: 0;
+    width: 20px;
+    position: unset !important;
+    margin-right: 12px;
 }
 
 .input100:focus+.focus-input100+.symbol-input100 {

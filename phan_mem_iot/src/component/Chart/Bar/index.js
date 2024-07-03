@@ -66,7 +66,8 @@ function ChartBarDetail() {
         datasets: [
             {
                 label: 'Dataset1',
-                data: randomValue(labels.length, 0, 1),
+                // data: randomValue(labels.length, 0, 1),
+                data: ['10', '20', '60', '40', '55', '23', '13', '43', '50', '10', '5', '28'],
                 backgroundColor: '#5A9CD6',
             }
         ],
